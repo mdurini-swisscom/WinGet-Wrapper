@@ -140,6 +140,9 @@ try {
     Remove-Item -Path $stdout -Force
 
     $TargetVersion = $winGetOutput | Select-String -Pattern "version:" | ForEach-Object { $_.Line -replace '.*version:\s*(.*)', '$1' }
+	if ($TargetVersion -in ($null,"")){
+        $TargetVersion = $winGetOutput | Select-String -Pattern "versione:" | ForEach-Object { $_.Line -replace '.*versione:\s*(.*)', '$1' }
+    }
     Write-Log "WinGet version: $TargetVersion"
 }
 catch {
